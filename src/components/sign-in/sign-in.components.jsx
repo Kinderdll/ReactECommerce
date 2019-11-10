@@ -17,12 +17,12 @@ class SignIn extends Component{
 
      handleSubmit=async (event)=>{
          event.preventDefault();
-         debugger;
+         
          const { email, password } = this.state;
 
          try {
              await auth.signInWithEmailAndPassword(email, password);
-             this.setState({ emai: '', password: '' })
+             this.setState({ email: '', password: '' })
          }
          catch (err) {
              console.log(err);
