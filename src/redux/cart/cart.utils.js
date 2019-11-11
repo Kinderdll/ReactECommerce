@@ -1,20 +1,17 @@
 export const addItemToCart=( currentCartItems,cartItemToAdd)=>{
-    const currentItemsInCart = 
-    currentCartItems.find(currentCartItem=> 
-        currentCartItem.id === cartItemToAdd.id
+    const existingCartItem =  currentCartItems.find(
+        currentCartItem => currentCartItem.id === cartItemToAdd.id
         )
-
         //returns true if match , that means cartItemtoAdd is already there
-
-    if (currentItemsInCart){
-      return currentCartItems.map(existing_cartItem =>
+    if (existingCartItem){
+      return currentCartItems.map(currentCartItem =>
         //return new array
-            existing_cartItem.id === cartItemToAdd.id ?
-            {...existing_cartItem, quantity:existing_cartItem.quantity + 1}
+        currentCartItem.id === cartItemToAdd.id ?
+            {...currentCartItem, quantity: currentCartItem.quantity + 1}
             :
-            {existing_cartItem}
+            currentCartItem
         )
     }
 
-    return [...currentCartItems,{...cartItemToAdd,quantity:1}]
+    return [...currentCartItems, { ...cartItemToAdd,quantity:1}]
 }
