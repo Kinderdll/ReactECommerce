@@ -6,6 +6,8 @@ import {connect} from 'react-redux';
 import CartIcon from '../cart-icon/cart-icon.component'
 import {ReactComponent as Logo} from '../../assets/crown.svg'
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
+import { selectCurrentUser } from '../../redux/user/user.selector';
+import { selectCartHidden } from '../../redux/cart/cart.selector';
 
 
 
@@ -35,9 +37,9 @@ const Header=({currentUser,hidden})=>(
 );
 
 //state here refers to rootReducer
-const mapStatetoProps= ({user:{currentUser},cart:{hidden}})=>({
-    currentUser :currentUser,
-    hidden:hidden
+const mapStatetoProps= (state)=>({
+    currentUser :selectCurrentUser(state),
+    hidden:selectCartHidden(state)
 })
 
 export default connect(mapStatetoProps,)(Header);

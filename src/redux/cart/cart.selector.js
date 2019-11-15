@@ -1,6 +1,7 @@
 import {createSelector} from 'reselect';
 
 
+
 //input selector, that returns a piece of state
 const selectCart = state => state.cart;
 //const selectUser = state => state.user;
@@ -11,10 +12,22 @@ export const selectCartItems  = createSelector(
     [selectCart],
     cart=>cart.cartItems
 );
-
+export const selectCartHidden =createSelector(
+    [selectCart],
+    (cart)=>cart.hidden
+);
 
 //we always use the more specific selector, restricting input
 export const selectCartItemsCount = createSelector(
     [selectCartItems],
     (cartItems =>cartItems.reduce((accumulatorQuantity,cartItem)=>accumulatorQuantity+cartItem.quantity,0))
+)
+
+export const selectCartTotal = createSelector(
+    [selectCartItems],
+    (cartItems=>
+        cartItems.reduce(
+        (accumulatorQuantity,cartItem) =>
+        accumulatorQuantity+cartItem.quantity * cartItem.price,0)
+    )
 )

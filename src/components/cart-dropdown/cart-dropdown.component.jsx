@@ -1,27 +1,36 @@
 import React from 'react'
 import {connect} from 'react-redux';
 import CustomButton from '../custom-button/custom-button.component'
-
+import {withRouter} from 'react-router-dom'; 
 import './cart-dropdown.styles.scss'
 import CartItem from '../cart-item/cart-item.component'
-import { selectCartItemsCount } from '../../redux/cart/cart.selector';
+import { selectCartItems } from '../../redux/cart/cart.selector';
+import { toggleCartHidden } from '../../redux/cart/cart.actions';
 
 
-const CartDropdown=({cartItems})=>(
+const CartDropdown=({cartItems,history,dispatch})=>(
     <div className='cart-dropdown'>
         <div className='cart-items'>
-        {
-            cartItems.map(cartItem=>
+        { cartItems.length ?
+            (cartItems.map(cartItem=>
                 <CartItem key={cartItem.id} item={cartItem}
                 />)
+            )
+                :
+            (<span className='empty-message'>Your cart is Empty </span>)
         }
         </div>
-            <CustomButton>GO TO CHECKOUT</CustomButton>
+            <CustomButton onClick={()=>{
+                history.push('/checkout');
+            dispatch(toggleCartHidden());
+        }}>GO TO CHECKOUT</CustomButton>
     </div>
 )
 
 const mapStateToProps = (state) =>({
-    cartItems: selectCartItemsCount(state)
+    cartItems: selectCartItems(state)
 })
 
-export default connect(mapStateToProps)(CartDropdown)
+
+//withRouter so we can add history ,and use history.push()
+export default withRouter(connect(mapStateToProps)(CartDropdown));
