@@ -1,3 +1,7 @@
+Deployed on Heroku (PasS)
+Link : https://clothing-ltd.herokuapp.com/
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
